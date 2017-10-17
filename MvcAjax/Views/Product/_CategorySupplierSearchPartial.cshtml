@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MvcAjax.Models.NW.Product>
+
+<table class="table">
+    <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Supplier Name</th>
+        <th>Category Name</th>
+        <th>Unit Price</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductID</td>
+            <td>@item.ProductName</td>
+            <td>@item.Supplier.CompanyName</td>
+            <td>@item.Category.CategoryName</td>
+            <td>@item.UnitPrice</td>
+        </tr>
+    }
+</table>

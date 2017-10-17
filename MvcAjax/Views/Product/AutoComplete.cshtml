@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "ASP.NET MVC Northwind-Mania Store";
+}
+
+@section css {
+    <!--
+    <link href="@Url.Content("~/Content/themes/le-frog/jquery-ui-1.8.21.custom.css")"
+        rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/blitzer/jquery-ui-1.9.2.custom.min.css")"
+          rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/swanky-purse/jquery-ui-1.10.4.custom.min.css")"
+          rel="stylesheet" type="text/css" />
+            -->
+<link href="@Url.Content("~/Content/themes/swanky-purse/jquery-ui-1.10.4.custom.min.css")"
+      rel="stylesheet" type="text/css" />
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.11.3.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Custom/ProdSearchScripts.js")" type="text/javascript"></script>
+}
+
+<div id="promotion">
+</div>
+
+<div>
+    <br /><br />
+    @using (Ajax.BeginForm("ProductSearch", "Product",
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "searchFailed",
+        LoadingElementId = "ajax-loader",
+        UpdateTargetId = "searchresults",
+    }))
+    {
+        <input type="text" name="q"
+               data-autocomplete-source="@Url.Action("AutoCompleteSearch", "Product")" />
+        <input type="submit" value="search" />
+        <img id="ajax-loader"
+             src="@Url.Content("~/Content/Images/ajax-loader.gif")"
+             style="display:none" />
+    }
+
+    <div id="searchresults">
+
+    </div>
+
+    <br />
+    <br />
+    <h3>
+        <em>Fresh</em> off the grill
+    </h3>
+    <ul id="product-list">
+        @foreach (var product in Model)
+        {
+            <li>
+                <a href="@Url.Action("Details", "Store", new { id = product.ProductID })">
+                    <span>@product.ProductName</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

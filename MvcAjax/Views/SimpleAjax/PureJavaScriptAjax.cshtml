@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Raw AJAX with pure JavaScript (no jQuery)";
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/Custom/BcitRawAjax.js")" type="text/javascript"></script>
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <a href="#" id="timeLinkRaw" onclick="getServerTime()">
+        Click here to show the server time using raw AJAX.
+    </a>
+    <p id="timeDisplayRaw">No server time</p>
+</div>
+

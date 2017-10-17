@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MvcAjax.Models.NW.Product>
+
+
+@{
+    ViewBag.Title = "ASP.NET MVC Northwind-Mania Store";
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Custom/ProdSearchScripts.js")" type="text/javascript"></script>
+}
+
+<div id="promotion">
+</div>
+
+<div>
+    <br /><br />
+    @using (Ajax.BeginForm("ProductSearch", "Product",
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "searchFailed",//function
+        LoadingElementId = "ajax-loader",
+        UpdateTargetId = "searchresults",
+    }))
+    {
+        <input type="text" name="q" />
+        <input type="submit" value="search" />
+        <img id="ajax-loader"
+             src="@Url.Content("~/Content/Images/ajax-loader.gif")"
+             style="display:none" />
+    }
+
+    <div id="searchresults"></div>
+
+    <br />
+    <br />
+    <h3>5 top selling products</h3>
+    <ul id="product-list">
+        @foreach (var product in Model)
+        {
+            <li>
+                <a href="@Url.Action("Details", "Store", new { id = product.ProductID })">
+                    <span>@product.ProductName</span>
+                </a>
+            </li>
+        }
+    </ul>
+
+    <h3 style="color: orange;">Type the word 'error' if you want to simulate an exception.</h3>
+
+</div>

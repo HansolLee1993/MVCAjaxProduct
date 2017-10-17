@@ -1,0 +1,45 @@
+﻿@model MvcAjax.Models.ModelContainer
+@{
+    ViewBag.Title = "CategorySupplierProductTable";
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+
+<h2>Category Supplier Product Table</h2>
+
+<div>
+    @using (Ajax.BeginForm("_CategorySupplierSearchPartial", "Product",
+        new AjaxOptions {
+            HttpMethod = "GET",
+            UpdateTargetId = "viewTable",
+            OnFailure = "searchFailed"
+        }))
+        {
+            <label class="control-label col-sm-1">Category</label>
+            <div class="col-sm-4">
+
+                    @Html.DropDownListFor(m => m.CatID, Model.Categories)
+            
+            </div>
+
+            <label class="control-label col-sm-1">Supplier</label>
+            <div class="col-sm-4">
+          
+                    @Html.DropDownListFor(m => m.SupID, Model.Suppliers)
+            </div>
+                <input type="hidden" name="categoryID" value="@Model.CatID"/>
+                <input type="hidden" name="supplierID" value="@Model.SupID"/>
+                <input class="btm btn-info " type="submit" value="search" />
+    }
+
+    <div id="viewTable">
+        @Html.Partial("_CategorySupplierSearchPartial", Model.Products)
+    </div>
+
+
+</div>
+
+
+
